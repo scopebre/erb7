@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from .models import Listing
 
 # Create your views here.
 
@@ -7,7 +8,9 @@ from django.http import HttpResponse
 #    return HttpResponse("<h1>Hello World!</h1>")
 
 def listings(request):
-    return render(request, 'listings/listings.html')
+    listings = Listing.objects.all()
+    context = {"listings":listings}
+    return render(request, 'listings/listings.html',context)
 
 def listing(request):
     return render(request, 'listings/listing.html')

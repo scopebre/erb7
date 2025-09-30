@@ -34,12 +34,15 @@
       <div class="container">
         <div class="row">
           <!-- Listing 1 -->
+           {% if listings %}
+           {% for listing in listings %}
           <div class="col-md-6 col-lg-4 mb-4">
             <div class="card listing-preview">
               <img
                 class="card-img-top"
                 {% comment %} fix clinic 1 {% endcomment %}
-                src="assets/img/clinics/clinic-1.jpg"
+                {% comment %} src="assets/img/clinics/clinic-1.jpg" {% endcomment %}
+                src={{listing.photo_main.url}}
                 alt=""
               />
               <div class="card-img-overlay">
@@ -85,7 +88,11 @@
               </div>
             </div>
           </div>
-
+          {% endfor %}
+          {% else %}
+          <div class="col-md-12">
+            <p>No Clinic Avaiable</p>
+          {% endif %}
           <!-- Listing 2 -->
           <div class="col-md-6 col-lg-4 mb-4">
             <div class="card listing-preview">

@@ -1,0 +1,9 @@
+{% extends 'admin/base.html' %} {% load static %} {% block branding %}
+<h1 class="head">
+    <img src="{% static 'img/logo.png' %}" alt="medical logo" class="brand_img" height="40" width="50" />
+    <span class="brands">Medical Center Admin</span>
+</h1>
+{% endblock branding %}
+{% block extrastyle %}
+<link rel="stylesheet" href="{% static 'css/admin.css' %}" />
+{% endblock extrastyle %}
