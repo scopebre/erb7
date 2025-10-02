@@ -15,6 +15,7 @@ class Listing(models.Model):
     screens = models.CharField(max_length=200)
     screen = models.IntegerField()
     professionals = models.CharField(max_length=200)
+    professional = models.IntegerField()
     rooms = models.IntegerField()
     photo_main = models.ImageField(upload_to='photos/%Y/%m/%d/')
     photo_1 = models.ImageField(upload_to='photos/%Y/%m/%d/', blank=True)

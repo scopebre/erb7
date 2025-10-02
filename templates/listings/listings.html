@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+<!--load humanize-->
+{% load humanize %}
 {% block content %}
 {% load static %}
     <section id="showcase-inner" class="py-5 text-white">
@@ -49,26 +51,31 @@
               </div>
               <div class="card-body">
                 <div class="listing-heading text-center">
-                  <h4 class="text-primary">Harmony Health Clinic</h4>
+                  {% comment %} <h4 class="text-primary">Harmony Health Clinic</h4> {% endcomment %}
+                  <h4 class="text-primary">{{listing.title | title}}</h4>
                   <p>
-                    <i class="fas fa-map-marker text-secondary"></i> Kowloon Bay
-                  </p>
+                    {% comment %} <i class="fas fa-map-marker text-secondary"></i> Kowloon Bay {% endcomment %}
+                    <i class="fas fa-map-marker text-secondary"></i> {{listing.district}}                  </p>
                 </div>
                 <hr />
                 <div class="row py-2 text-secondary">
                   <div class="col-6">
-                    <i class="fas fa-th-large"></i> Restrooms
+                    {% comment %} <i class="fas fa-th-large"></i> Restrooms {% endcomment %}
+                    <i class="fas fa-th-large"></i> Services {{listing.service}}
                   </div>
                   <div class="col-6">
-                    <i class="fas fa-dumbbell"></i> Treatment 
+                    {% comment %} <i class="fas fa-dumbbell"></i> Treatment  {% endcomment %}
+                    <i class="fas fa-dumbbell"></i> Screens {{listing.screen}}
                   </div>
                 </div>
                 <div class="row py-2 text-secondary">
                   <div class="col-6">
-                    <i class="fas fa-bed"></i> Bedrooms
+                    {% comment %} <i class="fas fa-bed"></i> Bedrooms {% endcomment %}
+                    <i class="fas fa-bed"></i> Rooms {{listing.rooms}}
                   </div>
                   <div class="col-6">
-                    <i class="fas fa-bath"></i> Bathrooms
+                    {% comment %} <i class="fas fa-bath"></i> Bathrooms {% endcomment %}
+                    <i class="fas fa-bath"></i> Professionals {{listing.professional}}
                   </div>
                 </div>
                 <hr />
@@ -93,273 +100,6 @@
           <div class="col-md-12">
             <p>No Clinic Avaiable</p>
           {% endif %}
-          <!-- Listing 2 -->
-          <div class="col-md-6 col-lg-4 mb-4">
-            <div class="card listing-preview">
-              <img
-                class="card-img-top"
-                {% comment %} fix clinic 2 {% endcomment %}
-                src="assets/img/clinics/clinic-2.jpg"
-                alt=""
-              />
-              <div class="card-img-overlay">
-              </div>
-              <div class="card-body">
-                <div class="listing-heading text-center">
-                  <h4 class="text-primary">Evercare Medical Center</h4>
-                  <p>
-                    <i class="fas fa-map-marker text-secondary"></i> Kowloon
-                    City
-                  </p>
-                </div>
-                <hr />
-                <div class="row py-2 text-secondary">
-                  <div class="col-6">
-                    <i class="fas fa-th-large"></i> Restrooms
-                  </div>
-                  <div class="col-6">
-                    <i class="fas fa-dumbbell"></i> Treatment 
-                  </div>
-                </div>
-                <div class="row py-2 text-secondary">
-                  <div class="col-6">
-                    <i class="fas fa-bed"></i> Bedrooms
-                  </div>
-                  <div class="col-6">
-                    <i class="fas fa-bath"></i> Bathrooms
-                  </div>
-                </div>
-                <hr />
-                <div class="row py-2 text-secondary">
-                  <div class="col-12">
-                    <i class="fas fa-user"></i> Ms. Chung
-                  </div>
-                </div>
-                <div class="row text-secondary pb-2">
-                  <div class="col-12">
-                    <i class="fas fa-clock"></i> Reservation required
-                  </div>
-                </div>
-                <hr />
-                {% comment %} listing.html {% endcomment %}
-                <a href="listing.html" class="btn btn-primary btn-block"
-                  >More Info</a
-                >
-              </div>
-            </div>
-          </div>
-
-          <!-- Listing 3 -->
-          <div class="col-md-6 col-lg-4 mb-4">
-            <div class="card listing-preview">
-              <img
-                class="card-img-top"
-                {% comment %} fix clinic 3 {% endcomment %}
-                src="assets/img/clinics/clinic-3.jpg"
-                alt=""
-              />
-              <div class="card-img-overlay">
-              </div>
-              <div class="card-body">
-                <div class="listing-heading text-center">
-                  <h4 class="text-primary">VitalPath Wellness Clinic</h4>
-                  <p>
-                    <i class="fas fa-map-marker text-secondary"></i> Sham Shui
-                    Po
-                  </p>
-                </div>
-                <hr />
-                <div class="row py-2 text-secondary">
-                  <div class="col-6">
-                    <i class="fas fa-th-large"></i> Restrooms
-                  </div>
-                  <div class="col-6">
-                    <i class="fas fa-dumbbell"></i> Treatment 
-                  </div>
-                </div>
-                <div class="row py-2 text-secondary">
-                  <div class="col-6">
-                    <i class="fas fa-bed"></i> Bedrooms
-                  </div>
-                  <div class="col-6">
-                    <i class="fas fa-bath"></i> Bathrooms
-                  </div>
-                </div>
-                <hr />
-                <div class="row py-2 text-secondary">
-                  <div class="col-12"><i class="fas fa-user"></i> Ms. Chan</div>
-                </div>
-                <div class="row text-secondary pb-2">
-                  <div class="col-12">
-                    <i class="fas fa-clock"></i> Reservation required
-                  </div>
-                </div>
-                <hr />
-                {% comment %} fix listing.html {% endcomment %}
-                <a href="listing.html" class="btn btn-primary btn-block"
-                  >More Info</a
-                >
-              </div>
-            </div>
-          </div>
-
-          <!-- Listing 4 -->
-          <div class="col-md-6 col-lg-4 mb-4">
-            <div class="card listing-preview">
-              <img
-                class="card-img-top"
-                {% comment %} fix clinic 4 {% endcomment %}
-                src="assets/img/clinics/clinic-4.jpg"
-                alt=""
-              />
-              <div class="card-img-overlay">
-              </div>
-              <div class="card-body">
-                <div class="listing-heading text-center">
-                  <h4 class="text-primary">BrightCare Health Clinic</h4>
-                  <p>
-                    <i class="fas fa-map-marker text-secondary"></i> Sha Tin
-                  </p>
-                </div>
-                <hr />
-                <div class="row py-2 text-secondary">
-                  <div class="col-6">
-                    <i class="fas fa-th-large"></i> Restrooms
-                  </div>
-                  <div class="col-6">
-                    <i class="fas fa-dumbbell"></i> Treatment 
-                  </div>
-                </div>
-                <div class="row py-2 text-secondary">
-                  <div class="col-6">
-                    <i class="fas fa-bed"></i> Bedrooms
-                  </div>
-                  <div class="col-6">
-                    <i class="fas fa-bath"></i> Bathrooms
-                  </div>
-                </div>
-                <hr />
-                <div class="row py-2 text-secondary">
-                  <div class="col-12"><i class="fas fa-user"></i> Ms. Chan</div>
-                </div>
-                <div class="row text-secondary pb-2">
-                  <div class="col-12">
-                    <i class="fas fa-clock"></i> Reservation required
-                  </div>
-                </div>
-                <hr />
-                {% comment %} fix listing.html {% endcomment %}
-                <a href="listing.html" class="btn btn-primary btn-block"
-                  >More Info</a
-                >
-              </div>
-            </div>
-          </div>
-
-          <!-- Listing 5 -->
-          <div class="col-md-6 col-lg-4 mb-4">
-            <div class="card listing-preview">
-              <img
-                class="card-img-top"
-                {% comment %} fix clinic 5 {% endcomment %}
-                src="assets/img/clinics/clinic-5.jpg"
-                alt=""
-              />
-              <div class="card-img-overlay">
-              </div>
-              <div class="card-body">
-                <div class="listing-heading text-center">
-                  <h4 class="text-primary">TrueCare Medical Clinic</h4>
-                  <p>
-                    <i class="fas fa-map-marker text-secondary"></i> Lai King
-                  </p>
-                </div>
-                <hr />
-                <div class="row py-2 text-secondary">
-                  <div class="col-6">
-                    <i class="fas fa-th-large"></i> Restrooms
-                  </div>
-                  <div class="col-6">
-                    <i class="fas fa-dumbbell"></i> Treatment 
-                  </div>
-                </div>
-                <div class="row py-2 text-secondary">
-                  <div class="col-6">
-                    <i class="fas fa-bed"></i> Bedrooms
-                  </div>
-                  <div class="col-6">
-                    <i class="fas fa-bath"></i> Bathrooms
-                  </div>
-                </div>
-                <hr />
-                <div class="row py-2 text-secondary">
-                  <div class="col-12"><i class="fas fa-user"></i> Ms. Chan</div>
-                </div>
-                <div class="row text-secondary pb-2">
-                  <div class="col-12">
-                    <i class="fas fa-clock"></i> Reservation required
-                  </div>
-                </div>
-                <hr />
-                {% comment %} fix listing.html {% endcomment %}
-                <a href="listing.html" class="btn btn-primary btn-block"
-                  >More Info</a
-                >
-              </div>
-            </div>
-          </div>
-
-          <!-- Listing 6 -->
-          <div class="col-md-6 col-lg-4 mb-4">
-            <div class="card listing-preview">
-              <img
-                class="card-img-top"
-                {% comment %} fix clinic 6 {% endcomment %}
-                src="assets/img/clinics/clinic-6.jpg"
-                alt=""
-              />
-              <div class="card-img-overlay">
-              </div>
-              <div class="card-body">
-                <div class="listing-heading text-center">
-                  <h4 class="text-primary">Healing Horizons Clinic</h4>
-                  <p>
-                    <i class="fas fa-map-marker text-secondary"></i> Wai Chai
-                  </p>
-                </div>
-                <hr />
-                <div class="row py-2 text-secondary">
-                  <div class="col-6">
-                    <i class="fas fa-th-large"></i> Restrooms
-                  </div>
-                  <div class="col-6">
-                    <i class="fas fa-dumbbell"></i> Treatment 
-                  </div>
-                </div>
-                <div class="row py-2 text-secondary">
-                  <div class="col-6">
-                    <i class="fas fa-bed"></i> Bedrooms
-                  </div>
-                  <div class="col-6">
-                    <i class="fas fa-bath"></i> Bathrooms
-                  </div>
-                </div>
-                <hr />
-                <div class="row py-2 text-secondary">
-                  <div class="col-12"><i class="fas fa-user"></i> Ms. Chan</div>
-                </div>
-                <div class="row text-secondary pb-2">
-                  <div class="col-12">
-                    <i class="fas fa-clock"></i> Reservation required
-                  </div>
-                </div>
-                <hr />
-                <a href="listing.html" class="btn btn-primary btn-block"
-                  >More Info</a
-                >
-              </div>
-            </div>
-          </div>
         </div>
 
         <div class="row">
