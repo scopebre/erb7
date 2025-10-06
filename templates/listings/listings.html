@@ -88,8 +88,8 @@
                   </div>
                 </div>
                 <hr />
-                {% comment %} fix listing.html {% endcomment %}
-                <a href="listing.html" class="btn btn-primary btn-block"
+                {% comment %} <a href="listing.html" class="btn btn-primary btn-block" {% endcomment %}
+                <a href={% url "listings:listing" listing.id %} class="btn btn-primary btn-block"
                   >More Info</a
                 >
               </div>
