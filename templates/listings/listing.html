@@ -221,12 +221,14 @@
             {% comment %} fix doctor 1 {% endcomment %}
             <img
             class="card-img-top"
-            src="assets/img/doctors/kyle.jpg"
+            {% comment %} src="assets/img/doctors/kyle.jpg" {% endcomment %}
+            src={{listing.doctor.photo.url}}
             alt="Seller of the month"
             />
             <div class="card-body">
             <h5 class="card-title">Medical Practitioner</h5>
-            <h6 class="text-secondary">Kyle Chan</h6>
+            {% comment %} <h6 class="text-secondary">Kyle Chan</h6> {% endcomment %}
+            <h6 class="text-secondary">{{listing.doctor.name}}</h6> 
             </div>
         </div>
         <button

@@ -38,10 +38,14 @@
                   <div class="col-md-4 mb-3">
                     <label class="sr-only">District</label>
                     <select name="district" class="form-control">
-                      <option selected="true" disabled="disabled">
+                      {% comment %} <option selected="true" disabled="disabled"> {% endcomment %}
+                      <option selected="true" value=''>
                         District (All)
                       </option>
-                      <option value="IL">Islands</option>
+                      {% for key,value in district_choices.items %}
+                      <option value="{{key}}">{{value}}</option>
+                      {% endfor %}
+                      {% comment %} <option value="IL">Islands</option>
                       <option value="KT">Kwai Tsing</option>
                       <option value="NR">North</option>
                       <option value="SK">Sai Kung</option>
@@ -58,16 +62,19 @@
                       <option value="CW">Central & Western</option>
                       <option value="ER">Eastern</option>
                       <option value="SR">Southern</option>
-                      <option value="WC">Wan Chai</option>
+                      <option value="WC">Wan Chai</option> {% endcomment %}
                     </select>
                   </div>
                   <div class="col-md-4 mb-3">
-                    <label class="sr-only">Bedrooms</label>
-                    <select name="bedrooms" class="form-control">
-                      <option selected="true" disabled="disabled">
+                    <label class="sr-only">Nights</label>
+                    <select name="nights" class="form-control">
+                      <option selected="true" disabled=''>
                         Night (All)
                       </option>
-                      <option value="1">1</option>
+                      {% for key, value in night_choices.items %}
+                        <option value="{{key}}">{{value}}</option>
+                      {% endfor %}
+                      {% comment %} <option value="1">1</option>
                       <option value="2">2</option>
                       <option value="3">3</option>
                       <option value="4">4</option>
@@ -76,17 +83,21 @@
                       <option value="7">7</option>
                       <option value="8">8</option>
                       <option value="9">9</option>
-                      <option value="10">10</option>
+                      <option value="10">10</option> {% endcomment %}
                     </select>
                   </div>
                   <div class="col-md-4 mb-3">
-                    <select name="price" class="form-control" id="type">
+                    {% comment %} <select name="price" class="form-control" id="type"> {% endcomment %}
+                    <select name="room_type" class="form-control" id="type">
                       <option selected="true" disabled="disabled">
-                        Bedrooms (All)
+                        {% comment %} Bedrooms (All) {% endcomment %}
+                        Room types (All)
                       </option>
-                      <option value="1">Private Rooms</option>
-                      <option value="2">Semi-Private Rooms</option>
-                      <option value="3">Standard (Multi-bed) Rooms</option>
+                      {% for key, value in room_choices.items %}
+                        <option value="{{key}}">{{value}}</option>
+                      {% endfor %}
+                      {% comment %} <option value="2">Semi-Private Rooms</option>
+                      <option value="3">Standard (Multi-bed) Rooms</option> {% endcomment %}
                     </select>
                   </div>
                 </div>
@@ -158,7 +169,6 @@
                   </div>
                 </div>
                 <hr />
-                {% comment %} fix listing.html {% endcomment %}
                 {% comment %} <a href="listing.html" class="btn btn-primary btn-block" {% endcomment %}
                 <a href={% url "listings:listing" listing.id %} class="btn btn-primary btn-block"
                   >More Info</a>

@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponse
 from .models import Listing
 from django.core.paginator import EmptyPage,PageNotAnInteger, Paginator
+
 
 # Create your views here.
 
@@ -19,7 +20,8 @@ def listings(request):
     return render(request, 'listings/listings.html',context)
 
 def listing(request,listing_id):
-    listing = Listing.objects.get(id=listing_id)
+    # listing = Listing.objects.get(id=listing_id)
+    listing = get_object_or_404(Listing, pk=listing_id)
     context = {"listing":listing}
     return render(request, 'listings/listing.html',context)
 

@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from listings.models import Listing
 from doctors.models import Doctor
+from listings.choices import district_choices, room_choices, night_choices
 #from django.http import HttpResponse
 
 # Create your views here.
@@ -9,7 +10,11 @@ def index(request):
     #print(request.path)
     #print(request)
     listings = Listing.objects.filter(is_published=True)[:3] #get the 3 most recent listings
-    context = {"listings":listings}
+    context = {"listings":listings,
+               "district_choices":district_choices,
+               "room_choices":room_choices,
+               "night_choices":night_choices,
+              }
     return render(request,'pages/index.html',context)
 
 def about(request):
