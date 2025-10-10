@@ -1,9 +1,15 @@
 from django.db import models
 from datetime import datetime
 from doctors.models import Doctor
-from .choices import district_choices, rooms_choices
+from .choices import district_choices, rooms_choices, room_choices
 from taggit.managers import TaggableManager
 
+class Subject(models.Model):
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name
+    
 # Create your models here.
 class Listing(models.Model):
     doctor = models.ForeignKey('doctors.Doctor', on_delete=models.DO_NOTHING)
@@ -15,9 +21,11 @@ class Listing(models.Model):
     # services = models.CharField(max_length=200)
     services = TaggableManager(verbose_name="Services")
     service = models.IntegerField()
-    screens = models.CharField(max_length=200)
+    # screens = models.CharField(max_length=200)
+    room_type = models.CharField(max_length=200, choices=room_choices.items(), default='')
     screen = models.IntegerField()
-    professionals = models.CharField(max_length=200)
+    # professionals = models.CharField(max_length=200)
+    professionals = models.ManyToManyField(Subject, blank=True)
     professional = models.IntegerField()
     # rooms = models.IntegerField()
     rooms = models.CharField(max_length=2, choices=rooms_choices.items())
