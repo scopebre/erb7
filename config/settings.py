@@ -23,6 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECRET_KEY = 'django-insecure-%2(n^dpugbabbk*3jg38)@kos@0**clzz267wwuwd!&+sbb%i!'
 from dotenv import load_dotenv
 import os
+from django.contrib.messages import constants as messages
 load_dotenv()
 SECRET_KEY = os.getenv('SITE_SECRET_KEY')
 
@@ -47,6 +48,7 @@ DJANGO_APPS = [
     'django.contrib.humanize',
     "debug_toolbar",
     'taggit',
+    'widget_tweaks',
 ]
 
 APPCATION_APPS = [
@@ -54,6 +56,7 @@ APPCATION_APPS = [
     'listings.apps.ListingsConfig',
     'doctors.apps.DoctorsConfig',
     'accounts.apps.AccountsConfig',
+    'contacts.apps.ContactsConfig',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + APPCATION_APPS
@@ -113,7 +116,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'clinic',
+        'NAME': 'erb7cws13',
         'USER': 'postgres',
         'PASSWORD': '123123',
         'HOST': 'localhost',
@@ -173,3 +176,20 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 TAGGIT_CASE_INSENSITIVE = True
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
+    messages.SUCCESS: 'success',
+}
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # Replace with your SMTP host (e.g., 'smtp.gmail.com')
+EMAIL_PORT = 587  # Common port for TLS/STARTTLS
+EMAIL_USE_TLS = True  # Use TLS for secure connection (set to False for SSL and port 465)
+EMAIL_HOST_USER = 'scopebre@gmail.com'  # Your email address for authentication
+EMAIL_HOST_PASSWORD = 'zqgizqndhiydlhns'  # Your email password or app-specific password
+
+# Optional: Default sender email address if not specified in send_mail()
+DEFAULT_FROM_EMAIL = 'scopebre@gmail.com'
+
+# For development and testing, you can use the console backend to print emails to the console
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

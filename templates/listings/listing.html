@@ -29,7 +29,8 @@
             {% comment %} <a href="listings.html">Listings</a> {% endcomment %}
             <a href={% url 'listings:listings' %}>Listings</a>
         </li>
-        <li class="breadcrumb-item active">Lifeline Wellness Center</li>
+        {% comment %} <li class="breadcrumb-item active">Lifeline Wellness Center</li> {% endcomment %}
+        <li class="breadcrumb-item active">{{listing.title}}</li>
         </ol>
     </nav>
     </div>
@@ -37,11 +38,12 @@
 
 <!-- Listing -->
 <section id="listing" class="py-4">
+    {% include 'partials/_alert.html' %}
     <div class="container">
     {% comment %} <a href="listings.html" class="btn btn-light mb-4">Back To Listings</a> {% endcomment %}
     <a href={% url 'listings:listings' %} class="btn btn-light mb-4">Back To Listings</a>
     <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-9">          
         <!-- Home Main Image -->
         {% comment %} <img
             src="assets/img/clinics/clinic-1.jpg"
@@ -164,26 +166,38 @@
         <div class="row mb-5 fields">
             <div class="col-md-6">
             <ul class="list-group list-group-flush">
-                <li class="list-group-item text-secondary">
-                <i class="fas fa-money-bill-alt"></i> Inpatient Fee
-                Estimate:
-                <span class="float-right">$20,000/Day</span>
-                </li>
-                <li class="list-group-item text-secondary">
-                <i class="fas fa-bed"></i> Bedrooms:
-                <span class="float-right">30</span>
-                </li>
-                <li class="list-group-item text-secondary">
-                <i class="fas fa-bath"></i> Bathrooms:
-                <span class="float-right">Private</span>
-                </li>
-                <li class="list-group-item text-secondary">
-                <i class="fas fa-dumbbell"></i> Treatment:
-                <span class="float-right"> Have </span>
-                </li>
+                <div class="row py-2 text-secondary">
+                  <div class="col-6">
+                    {% comment %} <i class="fas fa-th-large"></i> Restrooms {% endcomment %}
+                    <i class="fas fa-th-large"></i> Services {{listing.service}}
+                  </div>
+                  <div class="col-6">
+                    {% comment %} <i class="fas fa-dumbbell"></i> Treatment  {% endcomment %}
+                    <i class="fas fa-dumbbell"></i> Screens {{listing.screen}}
+                  </div>
+                </div>
+                <div class="row py-2 text-secondary">
+                  <div class="col-6">
+                    {% comment %} <i class="fas fa-bed"></i> Bedrooms {% endcomment %}
+                    <i class="fas fa-bed"></i> Rooms {{listing.rooms}}
+                  </div>
+                  <div class="col-6">
+                    {% comment %} <i class="fas fa-bath"></i> Bathrooms {% endcomment %}
+                    <i class="fas fa-bath"></i> Professionals {{listing.professional}}
+                  </div>
+                </div>
+                <hr />
+                <div class="row py-2 text-secondary">
+                  <div class="col-12"><i class="fas fa-user"></i> Ms. Ma</div>
+                </div>
+                <div class="row text-secondary pb-2">
+                  <div class="col-12">
+                    <i class="fas fa-clock"></i> Reservation required
+                  </div>
+                </div>
             </ul>
             </div>
-            <div class="col-md-6">
+            {% comment %} <div class="col-md-6">
             <ul class="list-group list-group-flush">
                 <li class="list-group-item text-secondary">
                 <i class="fas fa-th-large"></i> Restrooms:
@@ -202,20 +216,50 @@
                 <span class="float-right">No</span>
                 </li>
             </ul>
-            </div>
+            </div> {% endcomment %}
         </div>
-
+            <!--professional-->
+            <div class="row mb-5">
+                <h4 class="mr-3 text-secondary">Professionals:</h4>
+                {% if listing.professionals.all %} <!--Check if there are any professionals-->
+                <ul>
+                    {% for professional in listing.professionals.all %}
+                <!--Access fields from the Subject model (e.g., name)-->
+                    <li class="mr-3"><h4>{{ professional.name }}</h4></li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <h4>No professionals</h4>
+                {% endif %}
+            </div>
+            <!--services-->
+            <div class="row mb-5">
+                <h4 class="text-secondary">Services : </h4>
+                {% if listing.services.all %} <!--Check if there are any professionals-->
+                    {% for service in listing.services.all %}
+                <ul>                    
+                <!--Access fields from the Subject model (e.g., name)-->
+                    {% comment %} <li class="mr-3"><h4>{{ service_tag.name | title }}</h4></li> {% endcomment %}
+                    <li class="mr-3"><h4>{{ service.name | title }}</h4></li>
+                </ul>                    
+                    {% endfor %}
+                {% else %}
+                <h4>No services</h4>
+                {% endif %}          
+            </div>
+            <div class="col-md-12">{{listing.description}}</div>
         <!-- Description -->
-        <div class="row mb-5">
+        
+        {% comment %} <div class="row mb-5">
             <div class="col-md-12">
             Lorem ipsum dolor sit amet consectetur adipisicing elit.
             Mollitia recusandae esse reiciendis officia omnis non rerum
             dicta cupiditate nostrum molestias deserunt aut minus inventore
             animi atque, consequuntur ad fugit. Possimus culpa blanditiis
             repellendus ipsa similique ullam, natus error dolor harum.
-            </div>
-        </div>
-        </div>
+            </div> {% endcomment %}
+        {% comment %} </div> {% endcomment %}
+        {% comment %} </div> {% endcomment %}
         <div class="col-md-3">
         <div class="card mb-3">
             {% comment %} fix doctor 1 {% endcomment %}
@@ -254,31 +298,45 @@
         </button>
         </div>
         <div class="modal-body">
-        <form>
+        {% comment %} <form> {% endcomment %}
+            <form action="{% url 'contacts:contact' %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="listing_id" value="{{listing.id}}" />
+            <input type="hidden" name="doctor_email" value="{{listing.doctor.email}}" />
+            {% if user.is_authenticated %}
+            <input type="hidden" name="user_id" value="{{user.id}}" />
+            {% else %}
+            <input type="hidden" name="user_id" value="0" />
+            {% endif %}
             <div class="form-group">
-            <label for="property_name" class="col-form-label"
-                >Property:</label
+            {% comment %} <label for="property_name" class="col-form-label" {% endcomment %}
+            <label for="clinic" class="col-form-label"            
+                >Clinic:</label
             >
             <input
                 type="text"
                 name="listing"
                 class="form-control"
-                value="45 Prince Street"
-                disabled
+                {% comment %} value="45 Prince Street" {% endcomment %}
+                value="{{listing.title}}"
+                readonly
+                {% comment %} disabled {% endcomment %}
             />
             </div>
             <div class="form-group">
             <label for="name" class="col-form-label">Name:</label>
-            <input type="text" name="name" class="form-control" required />
+            {% comment %} <input type="text" name="name" class="form-control" required /> {% endcomment %}
+            <input type="text" name="name" class="form-control" {% if user.is_authenticated %} value="{{user.first_name}} {{user.last_name}}" readonly {% endif %} />
             </div>
             <div class="form-group">
             <label for="email" class="col-form-label">Email:</label>
-            <input
+            {% comment %} <input
                 type="email"
                 name="email"
                 class="form-control"
                 required
-            />
+            /> {% endcomment %}
+            <input type="email" name="email" class="form-control" {% if user.is_authenticated %} value="{{user.email}}" readonly {% endif %} />
             </div>
             <div class="form-group">
             <label for="phone" class="col-form-label">Phone:</label>

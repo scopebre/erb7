@@ -44,11 +44,29 @@
         </ul>
 
         <ul class="navbar-nav ml-auto">
+            {% if user.is_authenticated %}
+            <li {% if 'dashboard' in request.path %} class="nav-item mr-3 active" {% else %} class="nav-item mr-3" {% endif %}>
+                {% comment %} <a class="nav-link" href="dashboard.html"> {% endcomment %}
+                <a class="nav-link" href={% url 'accounts:dashboard' %}>Welcome({{user.username | title}}'s dashboard)
+                </a>
+            </li>
+            <!--logout-->
+            <li class="nav-item mr-3">
+                <a href="javascript:{document.getElementById('logout').submit()}" class="nav-link">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+                <form action="{% url 'accounts:logout' %}" method="POST" id="logout">
+                {% csrf_token %}
+                <input type="hidden" />
+                </form>
+            </li>
+                {% comment %} <i class="fas fa-user"></i> Dashboard</a
+                > {% endcomment %}
+            {% else %}
         <li {% if 'register' in request.path %} class="nav-item mr-3 active" {% else %} class="nav-item mr-3" {% endif %}>
             {% comment %} <a class="nav-link" href="register.html"> {% endcomment %}
             <a class="nav-link" href={% url 'accounts:register' %}>
-            <i class="fas fa-user-plus"></i> Register</a
-            >
+            <i class="fas fa-user-plus"></i> Register</a>
         </li>
         {% comment %} <li class="nav-item mr-3"> {% endcomment %}
         <li {% if 'login' in request.path %} class="nav-item mr-3 active" {% else %} class="nav-item mr-3" {% endif %}>        
@@ -56,9 +74,9 @@
             <a class="nav-link" href={% url 'accounts:login' %}>
             <i class="fas fa-sign-in-alt"></i>
 
-            Login</a
-            >
+            Login</a>
         </li>
+        {% endif %}
         </ul>
     </div>
     </div>
